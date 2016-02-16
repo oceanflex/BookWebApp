@@ -79,10 +79,10 @@ public class DBMySql implements DBStrategy {
             throws ClassNotFoundException, SQLException {
         DBStrategy db = new DBMySql();
         db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/book", "root", "admin");
-        //List<Map<String,Object>> rawData = db.findAllRecords("author",0);
-        int rawData = db.deleteById("author",2,"author_id");
+        List<Map<String,Object>> rawData = db.findAllRecords("author",0);
+        //int rawData = db.deleteById("author",2,"author_id");
         db.closeConnection();
-        System.out.println(rawData);
+        System.out.println(rawData);//.get(0).get("author_id").getClass());
     }
 
     /**
