@@ -20,6 +20,12 @@ public class Author {
         this.dateAdded = new Date();
     }
 
+    public Author(int authorID, String authorName, Date dateAdded) {
+        this.authorID = authorID;
+        this.authorName = authorName;
+        this.dateAdded = dateAdded;
+    }
+
     @Override
     public String toString() {
         return "Author{" + "authorID=" + authorID + ", authorName=" + authorName + '}';
