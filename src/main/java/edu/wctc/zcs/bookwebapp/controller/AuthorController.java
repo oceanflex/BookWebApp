@@ -1,7 +1,7 @@
 package edu.wctc.zcs.bookwebapp.controller;
 
-import edu.wctc.zcs.bookwebapp.model.AuthorDao;
-import edu.wctc.zcs.bookwebapp.model.AuthorDaoStrategy;
+
+import edu.wctc.zcs.bookwebapp.model.AuthorService;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import edu.wctc.zcs.bookwebapp.model.MockAuthorDao;
+
 
 /**
  *
@@ -35,7 +35,7 @@ public class AuthorController extends HttpServlet {
         response.setContentType(TYPE);
         RequestDispatcher view = null;
         try {
-            AuthorDaoStrategy aServe = new AuthorDao();
+            AuthorService aServe = new AuthorService();
             request.setAttribute(ATTR,aServe.getAuthorList());
             view = request.getRequestDispatcher(PAGE);
         }catch(Exception e){
