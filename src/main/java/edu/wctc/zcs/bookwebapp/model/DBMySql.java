@@ -80,7 +80,7 @@ public class DBMySql implements DBStrategy {
         DBStrategy db = new DBMySql();
         db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/book", "root", "admin");
         List<Map<String,Object>> rawData = db.findAllRecords("author",0);
-        //int rawData = db.deleteById("author",2,"author_id");
+        //int rawData = db.deleteById("author",5,"author_id");
         db.closeConnection();
         System.out.println(rawData);//.get(0).get("author_id").getClass());
     }
@@ -91,21 +91,21 @@ public class DBMySql implements DBStrategy {
      * @param id The value of primary key of the entry to be removed
      * @param primaryKeyColumn the name of the primary key column
      * @return 
+     * @throws java.sql.SQLException 
      */
     @Override
-    public int deleteById(String tableName, Object id, String primaryKeyColumn) {
+    public int deleteById(String tableName, Object id, String primaryKeyColumn) throws SQLException {
         
-        try {
-            String sql = "DELETE FROM "+tableName+" WHERE ? LIKE ? ";
+//        try {
+            String sql = "DELETE FROM "+tableName+" WHERE "+primaryKeyColumn+"  LIKE ? ";
             PreparedStatement stmt = conn.prepareStatement(sql);
             //stmt.setString(1, tableName);
-            stmt.setString(1, primaryKeyColumn);
-            stmt.setObject(2, id);
+            //stmt.setString(1, primaryKeyColumn);
+            stmt.setObject(1, id);
             
             return stmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBMySql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DBMySql.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }
