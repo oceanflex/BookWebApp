@@ -24,6 +24,15 @@ public class DBMySql implements DBStrategy {
     public DBMySql() {
     }
     
+    /**
+     * This method is a prerequisite for running any queries
+     * @param driver location of the driver class for the mySql database
+     * @param url the network location of the database to open a connection with
+     * @param userName for authentication with the database
+     * @param password for authentication with the database
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     @Override
     public void openConnection(String driver, String url, String userName, String password) 
             throws ClassNotFoundException, SQLException{
@@ -33,6 +42,10 @@ public class DBMySql implements DBStrategy {
         conn = DriverManager.getConnection(url,userName,password);
     }
     
+    /**
+     * Run this method at your earliest convenience after querying the database.
+     * @throws SQLException 
+     */
     @Override
     public void closeConnection() throws SQLException{
         conn.close();
@@ -86,7 +99,8 @@ public class DBMySql implements DBStrategy {
     }
 
     /**
-     * 
+     * Open a connection before calling this method, and close the connection 
+     * afterwards.
      * @param tableName tableName needs to be checked against a white list of tables in your database before being input
      * @param id The value of primary key of the entry to be removed
      * @param primaryKeyColumn the name of the primary key column
@@ -96,16 +110,10 @@ public class DBMySql implements DBStrategy {
     @Override
     public int deleteById(String tableName, Object id, String primaryKeyColumn) throws SQLException {
         
-//        try {
             String sql = "DELETE FROM "+tableName+" WHERE "+primaryKeyColumn+"  LIKE ? ";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            //stmt.setString(1, tableName);
-            //stmt.setString(1, primaryKeyColumn);
             stmt.setObject(1, id);
             
             return stmt.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DBMySql.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }
