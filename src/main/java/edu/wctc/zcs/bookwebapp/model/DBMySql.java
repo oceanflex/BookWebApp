@@ -9,10 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -82,6 +81,48 @@ public class DBMySql implements DBStrategy {
         }
         return records;
     }
+    
+    /**
+     * Run the openConnection method before this, and run closeConnection afterwards
+     * at your earliest convenience.
+     * @param tableName Name of the table where the record(s) to be updated exist
+     * @param colNamesToUpdate List of column names that you want to update, in order
+     * @param colValuesToUpdate List of values for those columns, in the SAME order
+     * @param keyColumn Column to be checked, in order to confirm the target to be updated
+     * @param keyValue Value that needs to match in the column to confirm update
+     * @return
+     * @throws SQLException 
+     */
+    public int updateRecord(String tableName, List<String> colNamesToUpdate, List<Object> colValuesToUpdate, String keyColumn, Object keyValue) throws SQLException{
+        PreparedStatement pstmt = null;
+        int recsUpdated = 0;
+
+        pstmt = buildUpdateStatement(conn,tableName,colNamesToUpdate,keyColumn);
+
+        final Iterator i=colValuesToUpdate.iterator();
+        int index = 1;
+        Object obj = null;
+
+        // set params for column values
+        while( i.hasNext()) {
+            obj = i.next();
+            pstmt.setObject(index++, obj);
+        }
+        // and finally set param for wehere value
+        pstmt.setObject(index,keyValue);
+
+        recsUpdated = pstmt.executeUpdate();
+
+        try {
+                pstmt.close();
+                conn.close();
+        } catch(SQLException e) {
+                throw e;
+        } // end try
+
+        return recsUpdated;
+    }
+    
     /**
      * test method, please ignore
      * @param args
@@ -116,4 +157,33 @@ public class DBMySql implements DBStrategy {
             
             return stmt.executeUpdate();
     }
+    
+    /**
+    * Builds a java.sql.PreparedStatement for an sql update using only one where clause test
+    * @param conn - a JDBC <code>Connection</code> object
+    * @param tableName - a <code>String</code> representing the table name
+    * @param colDescriptors - a <code>List</code> containing the column descriptors for
+    * the fields that can be updated.
+    * @param whereField - a <code>String</code> representing the field name for the
+    * search criteria.
+    * @return java.sql.PreparedStatement
+    * @throws SQLException
+    */
+    private PreparedStatement buildUpdateStatement(Connection conn_loc, 
+                String tableName, List colDescriptors, String whereField) throws SQLException {
+            
+        StringBuffer sql = new StringBuffer("UPDATE ");
+        (sql.append(tableName)).append(" SET ");
+        final Iterator i=colDescriptors.iterator();
+        
+        while( i.hasNext() ) {
+            (sql.append( (String)i.next() )).append(" = ?, ");
+        }
+        
+        sql = new StringBuffer( (sql.toString()).substring( 0,(sql.toString()).lastIndexOf(", ") ) );
+        ((sql.append(" WHERE ")).append(whereField)).append(" = ?");
+        final String finalSQL=sql.toString();
+        
+        return conn_loc.prepareStatement(finalSQL);
+	}
 }
