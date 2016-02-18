@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -93,7 +94,9 @@ public class DBMySql implements DBStrategy {
      * @return
      * @throws SQLException 
      */
-    public int updateRecord(String tableName, List<String> colNamesToUpdate, List<Object> colValuesToUpdate, String keyColumn, Object keyValue) throws SQLException{
+    public int updateRecordByKey(String tableName, List<String> colNamesToUpdate,
+            List<Object> colValuesToUpdate, String keyColumn, Object keyValue) 
+            throws SQLException{
         PreparedStatement pstmt = null;
         int recsUpdated = 0;
 
@@ -121,22 +124,6 @@ public class DBMySql implements DBStrategy {
         } // end try
 
         return recsUpdated;
-    }
-    
-    /**
-     * test method, please ignore
-     * @param args
-     * @throws ClassNotFoundException
-     * @throws SQLException 
-     */
-    public static void main(String[] args) 
-            throws ClassNotFoundException, SQLException {
-        DBStrategy db = new DBMySql();
-        db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/book", "root", "admin");
-        List<Map<String,Object>> rawData = db.findAllRecords("author",0);
-        //int rawData = db.deleteById("author",5,"author_id");
-        db.closeConnection();
-        System.out.println(rawData);//.get(0).get("author_id").getClass());
     }
 
     /**
@@ -185,5 +172,24 @@ public class DBMySql implements DBStrategy {
         final String finalSQL=sql.toString();
         
         return conn_loc.prepareStatement(finalSQL);
-	}
+    }
+    
+    /**
+     * test method, please ignore
+     * @param args
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public static void main(String[] args) 
+            throws ClassNotFoundException, SQLException {
+        DBStrategy db = new DBMySql();
+        db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/book", "root", "admin");
+        //List<Map<String,Object>> rawData = db.findAllRecords("author",0);
+        //int rawData = db.deleteById("author",5,"author_id");
+        List<String> colNames = Arrays.asList("author_name");
+        List<Object> colValues = Arrays.asList("Kenny");
+        int rawData = db.updateRecordByKey("author", colNames, colValues, "author_id", 5);
+        db.closeConnection();
+        System.out.println(rawData);//.get(0).get("author_id").getClass());
+    }
 }

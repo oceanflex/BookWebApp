@@ -1,5 +1,6 @@
 package edu.wctc.zcs.bookwebapp.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +27,11 @@ public class MockAuthorDao implements AuthorDaoStrategy{
     @Override
     public List<Author> getAuthorList(){
         return authors;
+    }
+
+    @Override
+    public int deleteAuthorById(Object id) throws ClassNotFoundException, SQLException {
+        
+        return 1;
     }
 }

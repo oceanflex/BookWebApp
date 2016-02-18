@@ -25,6 +25,20 @@ public class AuthorDao implements AuthorDaoStrategy {
     
     /**
      * 
+     * @param id
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public int deleteAuthorById(Object id) throws ClassNotFoundException, SQLException{
+        db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
+        int result = db.deleteById(TABLE, id, ID_COLUMN);
+        db.closeConnection();
+        return result;
+    }
+    
+    /**
+     * 
      * @return a list of all authors
      * @throws ClassNotFoundException
      * @throws SQLException 
