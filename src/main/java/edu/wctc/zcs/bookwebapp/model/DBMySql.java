@@ -175,6 +175,93 @@ public class DBMySql implements DBStrategy {
     }
     
     /**
+     * Inserts a record into a table based on a <code>List</code> of column
+     * descriptors and a one-to-one mapping of an associated <code>List</code>
+     * of column values.
+     * 
+     * authored by jlombardo
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - <code>List</code> containing the column
+     * descriptors
+     * @param colValues - <code>List</code> containing the column values. The
+     * order of these values must match the order of the column descriptors.
+     * @return <code>true</code> if successfull; <code>false</code> otherwise
+     * @throws DataAccessException if database access error or illegal sql
+     */
+    @Override
+    public final boolean insertRecord(String tableName, List colDescriptors,
+            List colValues) throws SQLException {
+
+        PreparedStatement pstmt = null;
+        int recsUpdated = 0;
+
+		// do this in an excpetion handler so that we can depend on the
+        // finally clause to close the connection
+        //try {
+            pstmt = buildInsertStatement(conn, tableName, colDescriptors);
+
+            final Iterator i = colValues.iterator();
+            int index = 1;
+            while (i.hasNext()) {
+                final Object obj = i.next();
+                pstmt.setObject(index++, obj);
+            }
+            recsUpdated = pstmt.executeUpdate();
+
+        /*} catch (SQLException sqle) {
+            throw new DataAccessException(sqle.getMessage(),sqle.getCause());
+        } catch (Exception e) {
+            throw new DataAccessException(e.getMessage(),e.getCause());
+        } finally {*/
+            //try {
+                pstmt.close();
+                conn.close();
+            /*} catch (SQLException e) {
+                throw new DataAccessException(e.getMessage(),e.getCause());
+            } // end try
+        } // end finally*/
+
+        if (recsUpdated == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /*
+     * Builds a java.sql.PreparedStatement for an sql insert
+     * authored by jlombardo
+     * @param conn - a valid connection
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - a <code>List</code> containing the column descriptors for
+     * the fields that can be inserted.
+     * @return java.sql.PreparedStatement
+     * @throws DataAccessException
+     */
+    private PreparedStatement buildInsertStatement(Connection conn, String tableName, List colDescriptors) throws SQLException
+             {
+        StringBuffer sql = new StringBuffer("INSERT INTO ");
+        (sql.append(tableName)).append(" (");
+        final Iterator i = colDescriptors.iterator();
+        while (i.hasNext()) {
+            (sql.append((String) i.next())).append(", ");
+        }
+        sql = new StringBuffer((sql.toString()).substring(0, (sql.toString()).lastIndexOf(", ")) + ") VALUES (");
+        for (int j = 0; j < colDescriptors.size(); j++) {
+            sql.append("?, ");
+        }
+        final String finalSQL = (sql.toString()).substring(0, (sql.toString()).lastIndexOf(", ")) + ")";
+        //System.out.println(finalSQL);
+        PreparedStatement psmt = null;
+        //try {
+            psmt = conn.prepareStatement(finalSQL);
+        /*} catch(SQLException e) {
+            throw new DataAccessException(e.getMessage(),e.getCause());
+        }*/
+        return psmt;
+    }
+    
+    /**
      * test method, please ignore
      * @param args
      * @throws ClassNotFoundException

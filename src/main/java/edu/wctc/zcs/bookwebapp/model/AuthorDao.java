@@ -39,6 +39,22 @@ public class AuthorDao implements AuthorDaoStrategy {
     
     /**
      * 
+     * @param id 
+     * @param thingsToUpdate An ordered list of what things about the author need to be updated
+     * @param newValues A list, in the same order as the other one, of the new values for the updated author
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public int updateAuthorById(Object id, List<String> thingsToUpdate, List<Object> newValues) throws ClassNotFoundException, SQLException{
+        db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
+        int result = db.updateRecordByKey(TABLE, thingsToUpdate, newValues, ID_COLUMN, id);
+        db.closeConnection();
+        return result;
+    }
+    
+    /**
+     * 
      * @return a list of all authors
      * @throws ClassNotFoundException
      * @throws SQLException 
@@ -60,6 +76,25 @@ public class AuthorDao implements AuthorDaoStrategy {
         db.closeConnection();
         return back;
     }
+
+    /**
+     * 
+     * @param tableName
+     * @param colDescriptors
+     * @param colValues
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    @Override
+    public boolean insertRecord(String tableName, List colDescriptors, List colValues) throws ClassNotFoundException, SQLException {
+        db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
+        boolean result = db.insertRecord(tableName, colDescriptors, colValues);
+        
+        db.closeConnection();
+        return result;
+    }
+    
     
     /**
      * test method, please ignore
@@ -72,5 +107,4 @@ public class AuthorDao implements AuthorDaoStrategy {
         List<Author> authors = dao.getAuthorList();
         System.out.println(authors);
     }
-    
 }
