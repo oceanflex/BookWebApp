@@ -2,6 +2,7 @@ package edu.wctc.zcs.bookwebapp.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,11 +38,15 @@ public class MockAuthorDao implements AuthorDaoStrategy{
 
     @Override
     public boolean insertRecord(String tableName, List colDescriptors, List colValues) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Author e = new Author((int)(Math.random()*100));
+        e.setAuthorName((String) colDescriptors.get(0));
+        e.setDateAdded((Date) colDescriptors.get(1));
+        authors.add(e);
+        return true;
     }
 
     @Override
     public int updateAuthorById(Object id, List<String> thingsToUpdate, List<Object> newValues) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 1;
     }
 }
