@@ -49,4 +49,9 @@ public class MockAuthorDao implements AuthorDaoStrategy{
     public int updateAuthorById(Object id, List<String> thingsToUpdate, List<Object> newValues) throws ClassNotFoundException, SQLException {
         return 1;
     }
+
+    @Override
+    public Author getAuthorById(Object id) throws ClassNotFoundException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

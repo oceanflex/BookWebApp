@@ -23,6 +23,7 @@ public interface DBStrategy {
             List<Object> colValuesToUpdate, String keyColumn, Object keyValue) 
             throws SQLException;
     
+    public abstract Map<String,Object> findRecordById(String tableName, String pKey, Object pValue) throws ClassNotFoundException, SQLException;
     public abstract List<Map<String,Object>> findAllRecords(String tableName, int maxRecords)
             throws SQLException;
     

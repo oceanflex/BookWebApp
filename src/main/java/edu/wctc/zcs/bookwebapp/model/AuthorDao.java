@@ -30,6 +30,7 @@ public class AuthorDao implements AuthorDaoStrategy {
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
+    @Override
     public int deleteAuthorById(Object id) throws ClassNotFoundException, SQLException{
         db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
         int result = db.deleteById(TABLE, id, ID_COLUMN);
@@ -46,6 +47,7 @@ public class AuthorDao implements AuthorDaoStrategy {
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
+    @Override
     public int updateAuthorById(Object id, List<String> thingsToUpdate, List<Object> newValues) throws ClassNotFoundException, SQLException{
         db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
         int result = db.updateRecordByKey(TABLE, thingsToUpdate, newValues, ID_COLUMN, id);
@@ -94,17 +96,22 @@ public class AuthorDao implements AuthorDaoStrategy {
         db.closeConnection();
         return result;
     }
-    
-    
+
     /**
-     * test method, please ignore
-     * @param args
+     *
+     * @param id
+     * @return
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        AuthorDaoStrategy dao = new AuthorDao();
-        List<Author> authors = dao.getAuthorList();
-        System.out.println(authors);
+    @Override
+    public Author getAuthorById(Object id) throws ClassNotFoundException, SQLException {
+        db.openConnection(DRIVER, DRIVER_URL, USERNAME, PASSWORD);
+        Map author = db.findRecordById(TABLE, ID_COLUMN, id);
+        db.closeConnection();
+        Author back = new Author((int) author.get(ID_COLUMN));
+        back.setAuthorName((String) author.get(NAME_COLUMN));
+        back.setDateAdded((Date) author.get(DATE_COLUMN));
+        return back;
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface AuthorDaoStrategy {
 
+    public abstract Author getAuthorById(Object id) throws ClassNotFoundException, SQLException;
     public abstract List<Author> getAuthorList() throws ClassNotFoundException, SQLException;
     public abstract int deleteAuthorById(Object id) throws ClassNotFoundException, SQLException;
     public abstract boolean insertRecord(String tableName, List colDescriptors,

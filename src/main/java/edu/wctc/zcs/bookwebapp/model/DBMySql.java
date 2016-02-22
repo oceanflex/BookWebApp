@@ -84,6 +84,35 @@ public class DBMySql implements DBStrategy {
     }
     
     /**
+     *  Open a connection before calling this method, and close the connection 
+     * afterwards. Future optimizations may return an array.
+     * @param tableName - Name of the table to find results within.
+     * @param pKey - name of the primary key column
+     * @param pValue - value of the primary key (id) of the record
+     * @return 
+     * @throws SQLException 
+     */
+    @Override
+    public Map<String,Object> findRecordById(String tableName, String pKey, Object pValue) throws SQLException{
+        String sql = "SELECT * FROM "+ tableName +" WHERE "+ pKey+"="+pValue+";";
+        
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int colCount = rsmd.getColumnCount();
+        
+        
+            Map<String,Object> record = new HashMap<>();
+            for(int colNum = 1; colNum <= colCount; colNum++){
+                Object colData = rs.getObject(colNum);
+                String colName = rsmd.getColumnName(colNum);
+                record.put(colName, colData);
+            }
+        
+        return record;
+    }
+    
+    /**
      * Run the openConnection method before this, and run closeConnection afterwards
      * at your earliest convenience.
      * @param tableName Name of the table where the record(s) to be updated exist
