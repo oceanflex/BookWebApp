@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 
 /**
  *
  * @author Zachary
  */
 public class AuthorDao implements AuthorDaoStrategy {
-    private DBStrategy db = new DBMySql();
+    @Inject
+    private DBStrategy db;
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String DRIVER_URL = "jdbc:mysql://localhost:3306/book";
     private final String USERNAME = "root";

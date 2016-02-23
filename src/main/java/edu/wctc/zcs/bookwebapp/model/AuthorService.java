@@ -2,13 +2,15 @@ package edu.wctc.zcs.bookwebapp.model;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  *
  * @author Zachary
  */
 public class AuthorService {
-    private AuthorDaoStrategy dao = new AuthorDao();
+    @Inject
+    private AuthorDaoStrategy dao;
     
     public List<Author> getAuthorList() throws ClassNotFoundException, SQLException{
         return dao.getAuthorList();

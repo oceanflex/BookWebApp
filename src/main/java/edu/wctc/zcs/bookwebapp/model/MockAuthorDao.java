@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.enterprise.inject.Alternative;
 
 /**
  *
  * @author Zachary
  */
+@Alternative
 public class MockAuthorDao implements AuthorDaoStrategy{
     private List<Author> authors;
 
