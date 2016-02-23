@@ -11,6 +11,17 @@ import javax.inject.Inject;
 public class AuthorService {
     @Inject
     private AuthorDaoStrategy dao;
+
+    public AuthorService() {
+    }
+
+    public AuthorDaoStrategy getDao() {
+        return dao;
+    }
+
+    public void setDao(AuthorDaoStrategy dao) {
+        this.dao = dao;
+    }
     
     public List<Author> getAuthorList() throws ClassNotFoundException, SQLException{
         return dao.getAuthorList();

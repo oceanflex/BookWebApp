@@ -3,6 +3,7 @@ package edu.wctc.zcs.bookwebapp.controller;
 
 import edu.wctc.zcs.bookwebapp.model.AuthorService;
 import java.io.IOException;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
     private static final String ATTR = "authors";
     private static final String PAGE = "/index.jsp";
+    @Inject 
+    private AuthorService aServe;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +38,6 @@ public class AuthorController extends HttpServlet {
         response.setContentType(TYPE);
         RequestDispatcher view = null;
         try {
-            AuthorService aServe = new AuthorService();
             request.setAttribute(ATTR,aServe.getAuthorList());
             view = request.getRequestDispatcher(PAGE);
         }catch(Exception e){

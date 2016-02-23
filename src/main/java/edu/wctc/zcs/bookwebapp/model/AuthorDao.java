@@ -14,6 +14,17 @@ import javax.inject.Inject;
 public class AuthorDao implements AuthorDaoStrategy {
     @Inject
     private DBStrategy db;
+
+    public AuthorDao() {
+    }
+
+    public DBStrategy getDb() {
+        return db;
+    }
+
+    public void setDb(DBStrategy db) {
+        this.db = db;
+    }
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String DRIVER_URL = "jdbc:mysql://localhost:3306/book";
     private final String USERNAME = "root";
