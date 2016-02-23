@@ -1,17 +1,20 @@
 package edu.wctc.zcs.bookwebapp.model;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author Zachary
  */
-public class AuthorDao implements AuthorDaoStrategy {
+@SessionScoped
+public class AuthorDao implements AuthorDaoStrategy, Serializable {
     @Inject
     private DBStrategy db;
 

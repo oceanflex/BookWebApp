@@ -1,5 +1,6 @@
 package edu.wctc.zcs.bookwebapp.model;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,12 +14,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author Zachary
  */
-public class DBMySql implements DBStrategy {
+@SessionScoped
+public class DBMySql implements DBStrategy, Serializable {
     private Connection conn;
     
     public DBMySql() {
