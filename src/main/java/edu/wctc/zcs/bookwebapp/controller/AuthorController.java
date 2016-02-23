@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Zachary
  */
-@WebServlet(name = "AuthorController", urlPatterns = {"/index"})
+@WebServlet(name = "AuthorController", urlPatterns = {"/index","/AuthorController"})
 public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
     private static final String ATTR = "authors";
