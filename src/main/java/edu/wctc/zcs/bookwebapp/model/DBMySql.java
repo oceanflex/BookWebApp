@@ -292,23 +292,4 @@ public class DBMySql implements DBStrategy, Serializable {
         }*/
         return psmt;
     }
-    
-    /**
-     * test method, please ignore
-     * @param args
-     * @throws ClassNotFoundException
-     * @throws SQLException 
-     */
-    public static void main(String[] args) 
-            throws ClassNotFoundException, SQLException {
-        DBStrategy db = new DBMySql();
-        db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/book", "root", "admin");
-        //List<Map<String,Object>> rawData = db.findAllRecords("author",0);
-        //int rawData = db.deleteById("author",5,"author_id");
-        List<String> colNames = Arrays.asList("author_name");
-        List<Object> colValues = Arrays.asList("Kenny");
-        int rawData = db.updateRecordByKey("author", colNames, colValues, "author_id", 5);
-        db.closeConnection();
-        System.out.println(rawData);//.get(0).get("author_id").getClass());
-    }
 }
