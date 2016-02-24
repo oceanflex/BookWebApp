@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 /**
  *
  * @author Zachary
  */
-@SessionScoped
+@Dependent
 public class AuthorDao implements AuthorDaoStrategy, Serializable {
     @Inject
     private DBStrategy db;

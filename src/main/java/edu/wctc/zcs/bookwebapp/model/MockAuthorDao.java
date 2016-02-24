@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Alternative;
 
 /**
@@ -13,7 +13,7 @@ import javax.enterprise.inject.Alternative;
  * @author Zachary
  */
 @Alternative
-@SessionScoped
+@Dependent
 public class MockAuthorDao implements AuthorDaoStrategy, Serializable{
     private List<Author> authors;
 
