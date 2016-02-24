@@ -69,4 +69,40 @@ public class MockAuthorDao implements AuthorDaoStrategy, Serializable{
     public void setDb(DBStrategy db) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public String getDriver() {
+        return "";
+    }
+
+    public void setDriver(String driver) {
+        
+    }
+
+    public String getDriverUrl() {
+        return "";
+    }
+
+    public void setDriverUrl(String driverUrl) {
+        
+    }
+
+    public String getUsername() {
+        return "";
+    }
+
+    public void setUsername(String username) {
+        
+    }
+
+    public String getPassword() {
+        return "";
+    }
+
+    public void setPassword(String password) {
+        
+    }
+
+    @Override
+    public void initDao(String driver, String url, String user, String password) {
+        
+    }
 }
