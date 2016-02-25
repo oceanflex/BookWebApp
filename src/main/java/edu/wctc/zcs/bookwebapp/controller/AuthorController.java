@@ -109,8 +109,8 @@ public class AuthorController extends HttpServlet {
      */
     @Override
     public void init() throws ServletException{
-        driverUrl = getServletContext().getInitParameter("db.driver.class");
-        driver = getServletContext().getInitParameter("db.class");
+        driver = getServletContext().getInitParameter("db.driver.class");
+        driverUrl = getServletContext().getInitParameter("db.url");
         username = getServletContext().getInitParameter("db.username");
         password = getServletContext().getInitParameter("db.password");
     }// </editor-fold>
