@@ -17,10 +17,10 @@ import javax.inject.Inject;
 public class AuthorDao implements AuthorDaoStrategy, Serializable {
     @Inject
     private DBStrategy db;
-    private String driver;// = "com.mysql.jdbc.Driver";
-    private String driverUrl;// = "jdbc:mysql://localhost:3306/book";
-    private String username;// = "root";
-    private String password;// = "admin";
+    private String driver;
+    private String driverUrl;
+    private String username;
+    private String password;
     private final String NO_NAME = "";
     private final Date NO_DATE = null;
     private final String TABLE = "author";

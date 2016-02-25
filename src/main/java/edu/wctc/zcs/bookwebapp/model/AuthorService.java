@@ -14,6 +14,12 @@ import javax.inject.Inject;
 public class AuthorService implements Serializable {
     @Inject
     private AuthorDaoStrategy dao;
+    
+    //db config init params from web.xml
+    private String driver;
+    private String driverUrl;
+    private String username;
+    private String password;
 
     public AuthorService() {
     }
