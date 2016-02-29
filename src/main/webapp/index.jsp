@@ -35,14 +35,14 @@
             </thead>
             <c:forEach var="i" items="${authors}" >
                 <tr>
-                    <td><c:out value="${ i.authorName }"/></td>
-                    <td><c:out value="${ i.authorID }"/></td>
-                    <td><c:out value="${ i.dateAdded }"/></td>
+                    <td>${ i.authorName }</td>
+                    <td>${ i.authorID }</td>
+                    <td>${ i.dateAdded }</td>
                     <td>
-                        <form role='form' method="post" name='<c:out  value="${ i.authorID }"/>' action="AuthorController" id='<c:out  value="${ i.authorID }"/>'>
+                        <form role='form' method="post" name='${ i.authorID }' action="AuthorController" id='${ i.authorID }'>
                             <div class="btn-group" role="group">
                                 <button name="submit" class="btn btn-warning" value='update'>Edit</button>
-                                <input type="hidden" value='<c:out  value="${ i.authorID }"/>' name="aId">
+                                <input type="hidden" value='${ i.authorID }' name="aId">
                                 <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
                             </div>
                         </form>
