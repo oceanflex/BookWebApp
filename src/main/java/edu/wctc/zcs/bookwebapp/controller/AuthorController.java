@@ -4,6 +4,9 @@ package edu.wctc.zcs.bookwebapp.controller;
 import edu.wctc.zcs.bookwebapp.model.AuthorService;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -24,6 +27,14 @@ public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
     private static final String ATTR = "authors";
     private static final String PAGE = "/index.jsp";
+    private static final String MODE = "submit";
+    private static final String INSERT = "insert";
+    private static final String UPDATE = "update";
+    private static final String DELETE = "delete";
+    private static final String ID = "aId";
+    private static final String NAME = ATTR + "Name";
+    private static final String DATE = "dateAdded";
+    
     
     @Inject 
     private AuthorService aServe;
@@ -44,20 +55,60 @@ public class AuthorController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType(TYPE);
-        RequestDispatcher view = null;
         configDbConnection();
+        
+        String mode = request.getParameter(MODE) != null ? request.getParameter(MODE) : MODE ;
+        List colDesc = new ArrayList();
+        List colVal = new ArrayList();
+        colVal.add(request.getParameter(NAME)!=null?request.getParameter(NAME):"");
+        colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):new Date());
+        colDesc.add(NAME);
+        colDesc.add(DATE);
+        switch (mode){
+            case INSERT : {
+            try {
+                aServe.insertRecord(ATTR,colDesc,colVal);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                loadPage(request,response);
+                break;
+            }
+            case UPDATE : {
+                
+                loadPage(request,response);
+                break;
+            }
+            case DELETE : {
+            try {
+                aServe.deleteAuthorById(request.getParameter(ID));
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                loadPage(request,response);
+                break;
+            }
+            default: {
+                loadPage(request,response);
+            }
+        }
+        
+    }
+    
+    private void loadPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+        RequestDispatcher view = null;
         try {
             request.setAttribute(ATTR,aServe.getAuthorList());
             view = request.getRequestDispatcher(PAGE);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             view.forward(request, response);
         }
+        
     }
 
     private void configDbConnection(){

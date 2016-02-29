@@ -27,12 +27,26 @@
                 <th>Name</th>
                 <th>ID</th>
                 <th>Date Added</th>
+                <th>
+                    <form role='form' method="post" action="AuthorController" id='-1'>
+                        <button name='submit' class="btn btn-success" value="insert">Add</button>
+                    </form>
+                </th>
             </thead>
             <c:forEach var="i" items="${authors}" >
                 <tr>
                     <td><c:out value="${ i.authorName }"/></td>
                     <td><c:out value="${ i.authorID }"/></td>
                     <td><c:out value="${ i.dateAdded }"/></td>
+                    <td>
+                        <form role='form' method="post" name='<c:out  value="${ i.authorID }"/>' action="AuthorController" id='<c:out  value="${ i.authorID }"/>'>
+                            <div class="btn-group" role="group">
+                                <button name="submit" class="btn btn-warning" value='update'>Edit</button>
+                                <input type="hidden" value='<c:out  value="${ i.authorID }"/>' name="aId">
+                                <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
+                            </div>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             
