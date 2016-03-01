@@ -82,7 +82,11 @@ public class AuthorController extends HttpServlet {
                 break;
             }
             case UPDATE : {
-                
+            try {
+                aServe.updateAuthorById(ID, colVal, colDesc);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 loadPage(request,response);
                 break;
             }

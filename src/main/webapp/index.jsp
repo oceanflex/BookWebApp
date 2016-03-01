@@ -32,15 +32,15 @@
                         Add
                     </button>
 
-                    <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="iModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Add New Author</h4>
+                                    <h4 class="modal-title" id="iModalLabel">Add New Author</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form role='form' method="post" action="AuthorController" id="-1">
+                                    <form role='form' method="post" action="index" id="-1">
                                         <label for="authorName">Author's Name</label>
                                         <div class="input-group">
                                             <input required type="text" placeholder="first last" class="form-control" name="author_name">
@@ -64,9 +64,10 @@
                         <td>${ i.authorID }</td>
                         <td>${ i.dateAdded }</td>
                         <td>
-                            <form role='form' method="post" name='${ i.authorID }' action="AuthorController" id='${ i.authorID }'>
+                            <form role='form' method="post" name='${ i.authorID }' action="index" id='${ i.authorID }'>
                                 <div class="btn-group" role="group">
-                                    <button type="button" name="submit" class="btn btn-warning" value='update' data-toggle="modal" data-target="#updateModal">Edit</button>
+                                    <button type="button" name="submit" class="btn btn-warning" value='update' 
+                                            data-aid="${ i.authorID }" data-aname="${ i.authorName }" data-adate="${ i.dateAdded }" data-toggle="modal" data-target="#updateModal">Edit</button>
                                     <input type="hidden" value='${ i.authorID }' name="aId"/>
                                     <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
                                 </div>
@@ -77,22 +78,23 @@
 
             </table>
 
-            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="uModelLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Updating</h4>
+                            <h4 class="modal-title" id="uModalLabel">Updating</h4>
                         </div>
                         <div class="modal-body">
-                            <form role='form' method="post" action="AuthorController" id="-1">
+                            <form role='form' method="post" action="index" id="-2">
                                 <label for="authorName">Author's Name</label>
                                 <div class="input-group">
-                                    <input required type="text" placeholder="first last" class="form-control" name="author_name">
-                                    <!--span class="input-group-btn">
-                                        <button name='submit' class="btn btn-success" value="update">Add</button>
-                                        <input type="hidden" value=""/>
-                                    </span-->
+                                    <input required type="text" placeholder="first last" class="form-control" id="uName" name="author_name"/>
+                                    <input type="hidden" value="-3" name="uId" id="aId"/>
+                                    <input type="text" value=" " name="uDate" id="date_added"/>
+                                    <span class="input-group-btn">
+                                        <button name='submit' class="btn btn-success" value="update">Change</button>
+                                    </span>
                                 </div>
                             </form>
                         </div>
