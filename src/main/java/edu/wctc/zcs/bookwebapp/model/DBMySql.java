@@ -145,7 +145,7 @@ public class DBMySql implements DBStrategy, Serializable {
         }
         // and finally set param for wehere value
         pstmt.setObject(index,keyValue);
-
+        System.out.println(pstmt);
         recsUpdated = pstmt.executeUpdate();
 
         try {

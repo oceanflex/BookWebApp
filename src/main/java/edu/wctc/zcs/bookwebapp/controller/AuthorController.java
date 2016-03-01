@@ -82,8 +82,10 @@ public class AuthorController extends HttpServlet {
                 break;
             }
             case UPDATE : {
+                System.out.println(colVal);
+                System.out.println(colDesc);
             try {
-                aServe.updateAuthorById(ID, colVal, colDesc);
+                aServe.updateAuthorById(request.getParameter(ID), colDesc, colVal);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
             }
