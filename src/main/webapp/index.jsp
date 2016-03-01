@@ -29,7 +29,7 @@
                 <th>Date Added</th>
                 <th>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insertModal">
-                        Launch demo modal
+                        Add
                     </button>
 
                     <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="myModalLabel">
@@ -37,13 +37,17 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                    <h4 class="modal-title" id="myModalLabel">Add New Author</h4>
                                 </div>
                                 <div class="modal-body">
                                     <form role='form' method="post" action="AuthorController" id="-1">
                                         <label for="authorName">Author's Name</label>
-                                        <input type="text" placeholder="first last" class="form-control" name="author_name">
-                                        <button required='required' name='submit' class="btn btn-success" value="insert">Add</button>
+                                        <div class="input-group">
+                                            <input required type="text" placeholder="first last" class="form-control" name="author_name">
+                                            <span class="input-group-btn">
+                                                <button name='submit' class="btn btn-success" value="insert">Add</button>
+                                            </span>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -62,8 +66,8 @@
                         <td>
                             <form role='form' method="post" name='${ i.authorID }' action="AuthorController" id='${ i.authorID }'>
                                 <div class="btn-group" role="group">
-                                    <button name="submit" class="btn btn-warning" value='update'>Edit</button>
-                                    <input type="hidden" value='${ i.authorID }' name="aId">
+                                    <button type="button" name="submit" class="btn btn-warning" value='update' data-toggle="modal" data-target="#updateModal">Edit</button>
+                                    <input type="hidden" value='${ i.authorID }' name="aId"/>
                                     <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
                                 </div>
                             </form>
@@ -72,6 +76,32 @@
                 </c:forEach>
 
             </table>
+
+            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Updating</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role='form' method="post" action="AuthorController" id="-1">
+                                <label for="authorName">Author's Name</label>
+                                <div class="input-group">
+                                    <input required type="text" placeholder="first last" class="form-control" name="author_name">
+                                    <!--span class="input-group-btn">
+                                        <button name='submit' class="btn btn-success" value="update">Add</button>
+                                        <input type="hidden" value=""/>
+                                    </span-->
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
