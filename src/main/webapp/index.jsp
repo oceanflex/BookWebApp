@@ -42,8 +42,8 @@
                                 <div class="modal-body">
                                     <form role='form' method="post" action="index" id="-1">
                                         <div class="input-group">
-                                            <label class="input-group-addon" for="authorName">Author's Name</label>
-                                            <input required type="text" placeholder="first last" class="form-control" name="author_name">
+                                            <label class="input-group-addon" for="author_name">Author's Name</label>
+                                            <input required type="text" placeholder="first last" id="author_name" class="form-control" name="author_name">
                                             <span class="input-group-btn">
                                                 <button name='submit' class="btn btn-success" value="insert">Add</button>
                                             </span>
