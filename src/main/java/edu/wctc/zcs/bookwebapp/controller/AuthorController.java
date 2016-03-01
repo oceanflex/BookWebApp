@@ -4,6 +4,8 @@ package edu.wctc.zcs.bookwebapp.controller;
 import edu.wctc.zcs.bookwebapp.model.AuthorService;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,15 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AuthorController", urlPatterns = {"/index","/AuthorController"})
 public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
-    private static final String ATTR = "authors";
+    private static final String ATTR = "author";
     private static final String PAGE = "/index.jsp";
     private static final String MODE = "submit";
     private static final String INSERT = "insert";
     private static final String UPDATE = "update";
     private static final String DELETE = "delete";
     private static final String ID = "aId";
-    private static final String NAME = ATTR + "Name";
-    private static final String DATE = "dateAdded";
+    private static final String NAME = ATTR + "_name";
+    private static final String DATE = "date_added";
     
     
     @Inject 
@@ -62,10 +64,13 @@ public class AuthorController extends HttpServlet {
         String mode = request.getParameter(MODE) != null ? request.getParameter(MODE) : MODE ;
         List colDesc = new ArrayList();
         List colVal = new ArrayList();
-        colVal.add(request.getParameter(NAME)!=null?request.getParameter(NAME):"");
-        colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):new Date());
+        colVal.add(request.getParameter(NAME)!=null?request.getParameter(NAME):"empty");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String now = df.format(new Date());
+        colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):now);
         colDesc.add(NAME);
         colDesc.add(DATE);
+        
         switch (mode){
             case INSERT : {
             try {
@@ -99,13 +104,13 @@ public class AuthorController extends HttpServlet {
     
     private void loadPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
-        RequestDispatcher view = null;
+        RequestDispatcher view;
         try {
             request.setAttribute(ATTR,aServe.getAuthorList());
-            view = request.getRequestDispatcher(PAGE);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
+            view = request.getRequestDispatcher(PAGE);
             view.forward(request, response);
         }
         

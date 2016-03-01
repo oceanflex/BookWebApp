@@ -28,12 +28,10 @@
                 <th>ID</th>
                 <th>Date Added</th>
                 <th>
-                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insertModal">
                         Launch demo modal
                     </button>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -44,18 +42,19 @@
                                 <div class="modal-body">
                                     <form role='form' method="post" action="AuthorController" id="-1">
                                         <label for="authorName">Author's Name</label>
-                                        <input type="text" placeholder="first last" class="form-control" name="authorName">
+                                        <input type="text" placeholder="first last" class="form-control" name="author_name">
+                                        <button required='required' name='submit' class="btn btn-success" value="insert">Add</button>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button name='submit' class="btn btn-success" value="insert">Add</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </thead>
-                    <c:forEach var="i" items="${authors}" >
+                </th>
+                </thead>
+                <c:forEach var="i" items="${author}" >
                     <tr>
                         <td>${ i.authorName }</td>
                         <td>${ i.authorID }</td>
