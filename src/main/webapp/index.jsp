@@ -87,15 +87,18 @@
                         </div>
                         <div class="modal-body">
                             <form role='form' method="post" action="index" id="-2">
-                                <label for="authorName">Author's Name</label>
                                 <div class="input-group">
+                                    <label class="input-group-addon" for="uDate">Date Added</label>
+                                    <input class="form-control" type="date" value=" " name="date_added" id="uDate"/>
+                                </div><br/>
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="uName">Author's Name</label>
                                     <input required type="text" placeholder="first last" class="form-control" id="uName" name="author_name"/>
-                                    <input type="hidden" value="-3" name="uId" id="aId"/>
-                                    <input type="text" value=" " name="uDate" id="date_added"/>
                                     <span class="input-group-btn">
                                         <button name='submit' class="btn btn-success" value="update">Change</button>
                                     </span>
                                 </div>
+                                <input type="hidden" value="-3" name="aId" id="uId"/>
                             </form>
                         </div>
                         <div class="modal-footer">
