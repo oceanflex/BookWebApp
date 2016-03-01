@@ -126,6 +126,7 @@ public class DBMySql implements DBStrategy, Serializable {
      * @return
      * @throws SQLException 
      */
+    @Override
     public int updateRecordByKey(String tableName, List<String> colNamesToUpdate,
             List<Object> colValuesToUpdate, String keyColumn, Object keyValue) 
             throws SQLException{
@@ -145,7 +146,7 @@ public class DBMySql implements DBStrategy, Serializable {
         }
         // and finally set param for wehere value
         pstmt.setObject(index,keyValue);
-        System.out.println(pstmt);
+        
         recsUpdated = pstmt.executeUpdate();
 
         try {
