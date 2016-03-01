@@ -22,38 +22,62 @@
         <div class="container">
             <br/>
             <div class="alert alert-info" role="alert">All Authors</div>
-        <table class="table">
-            <thead class="head">
+            <table class="table">
+                <thead class="head">
                 <th>Name</th>
                 <th>ID</th>
                 <th>Date Added</th>
                 <th>
-                    <form role='form' method="post" action="AuthorController" id='-1'>
-                        <button name='submit' class="btn btn-success" value="insert">Add</button>
-                    </form>
-                </th>
-            </thead>
-            <c:forEach var="i" items="${authors}" >
-                <tr>
-                    <td>${ i.authorName }</td>
-                    <td>${ i.authorID }</td>
-                    <td>${ i.dateAdded }</td>
-                    <td>
-                        <form role='form' method="post" name='${ i.authorID }' action="AuthorController" id='${ i.authorID }'>
-                            <div class="btn-group" role="group">
-                                <button name="submit" class="btn btn-warning" value='update'>Edit</button>
-                                <input type="hidden" value='${ i.authorID }' name="aId">
-                                <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insertModal">
+                        Launch demo modal
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form role='form' method="post" action="AuthorController" id="-1">
+                                        <label for="authorName">Author's Name</label>
+                                        <input type="text" placeholder="first last" class="form-control" name="authorName">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button name='submit' class="btn btn-success" value="insert">Add</button>
+                                    </form>
+                                </div>
                             </div>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-            
-        </table>
+                        </div>
+                    </div>
+                    </thead>
+                    <c:forEach var="i" items="${authors}" >
+                    <tr>
+                        <td>${ i.authorName }</td>
+                        <td>${ i.authorID }</td>
+                        <td>${ i.dateAdded }</td>
+                        <td>
+                            <form role='form' method="post" name='${ i.authorID }' action="AuthorController" id='${ i.authorID }'>
+                                <div class="btn-group" role="group">
+                                    <button name="submit" class="btn btn-warning" value='update'>Edit</button>
+                                    <input type="hidden" value='${ i.authorID }' name="aId">
+                                    <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+            </table>
         </div>
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
                 integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" 
-                crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
+        <script src="custom.js"></script>
     </body>
 </html>
