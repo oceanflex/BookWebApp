@@ -41,8 +41,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <form role='form' method="post" action="index" id="-1">
-                                        <label for="authorName">Author's Name</label>
                                         <div class="input-group">
+                                            <label class="input-group-addon" for="authorName">Author's Name</label>
                                             <input required type="text" placeholder="first last" class="form-control" name="author_name">
                                             <span class="input-group-btn">
                                                 <button name='submit' class="btn btn-success" value="insert">Add</button>
@@ -89,13 +89,13 @@
                             <form role='form' method="post" action="index" id="-2">
                                 <div class="input-group">
                                     <label class="input-group-addon" for="uDate">Date Added</label>
-                                    <input class="form-control" type="date" value=" " name="date_added" id="uDate"/>
+                                    <input class="form-control" type="date" value=" " name="date_added" id="uDate" required/>
                                 </div><br/>
                                 <div class="input-group">
                                     <label class="input-group-addon" for="uName">Author's Name</label>
                                     <input required type="text" placeholder="first last" class="form-control" id="uName" name="author_name"/>
                                     <span class="input-group-btn">
-                                        <button name='submit' class="btn btn-success" value="update">Change</button>
+                                        <button name='submit' class="btn btn-warning" value="update">Change</button>
                                     </span>
                                 </div>
                                 <input type="hidden" value="-3" name="aId" id="uId"/>
