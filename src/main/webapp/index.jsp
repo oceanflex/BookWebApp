@@ -19,6 +19,30 @@
               crossorigin="anonymous">
     </head>
     <body>
+        <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="iModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="iModalLabel">Add New Author</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role='form' method="post" action="index" id="-1">
+                            <div class="input-group">
+                                <label class="input-group-addon" for="author_name">Author's Name</label>
+                                <input required type="text" placeholder="first last" id="author_name" class="form-control" name="author_name">
+                                <span class="input-group-btn">
+                                    <button name='submit' class="btn btn-success" value="insert">Add</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <br/>
             <div class="alert alert-info" role="alert">All Authors</div>
@@ -32,30 +56,6 @@
                         Add
                     </button>
 
-                    <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="iModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="iModalLabel">Add New Author</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form role='form' method="post" action="index" id="-1">
-                                        <div class="input-group">
-                                            <label class="input-group-addon" for="author_name">Author's Name</label>
-                                            <input required type="text" placeholder="first last" id="author_name" class="form-control" name="author_name">
-                                            <span class="input-group-btn">
-                                                <button name='submit' class="btn btn-success" value="insert">Add</button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </th>
                 </thead>
                 <c:forEach var="i" items="${author}" >
@@ -75,35 +75,34 @@
                         </td>
                     </tr>
                 </c:forEach>
-
             </table>
+        </div>
 
-            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="uModelLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="uModalLabel">Updating</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form role='form' method="post" action="index" id="-2">
-                                <div class="input-group">
-                                    <label class="input-group-addon" for="uDate">Date Added</label>
-                                    <input class="form-control" type="date" value=" " name="date_added" id="uDate" required/>
-                                </div><br/>
-                                <div class="input-group">
-                                    <label class="input-group-addon" for="uName">Author's Name</label>
-                                    <input required type="text" placeholder="first last" class="form-control" id="uName" name="author_name"/>
-                                    <span class="input-group-btn">
-                                        <button name='submit' class="btn btn-warning" value="update">Change</button>
-                                    </span>
-                                </div>
-                                <input type="hidden" value="-3" name="aId" id="uId"/>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+        <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="uModelLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="uModalLabel">Update Author</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role='form' method="post" action="index" id="-2">
+                            <div class="input-group">
+                                <label class="input-group-addon" for="uDate">Date Added</label>
+                                <input class="form-control" type="date" value=" " name="date_added" id="uDate" required/>
+                            </div><br/>
+                            <div class="input-group">
+                                <label class="input-group-addon" for="uName">Author's Name</label>
+                                <input required type="text" placeholder="first last" class="form-control" id="uName" name="author_name"/>
+                                <span class="input-group-btn">
+                                    <button name='submit' class="btn btn-warning" value="update">Change</button>
+                                </span>
+                            </div>
+                            <input type="hidden" value="-3" name="aId" id="uId"/>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
