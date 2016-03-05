@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,7 +36,10 @@ public class AuthorController extends HttpServlet {
     private static final String DELETE = "delete";
     private static final String ID = "aId";
     private static final String NAME = ATTR + "_name";
+    private static final String DEFAULT_NAME = "empty";
     private static final String DATE = "date_added";
+    private static final String USER_NAME = "userName";
+    private static final String DEFAULT_USER_NAME = "-1";
     
     
     @Inject 
@@ -62,15 +66,22 @@ public class AuthorController extends HttpServlet {
         configDbConnection();
         
         String mode = request.getParameter(MODE) != null ? request.getParameter(MODE) : MODE ;
+        
         List colDesc = new ArrayList();
         List colVal = new ArrayList();
-        colVal.add(request.getParameter(NAME)!=null?request.getParameter(NAME):"empty");
+        colVal.add(request.getParameter(NAME)!=null ? request.getParameter(NAME):DEFAULT_NAME);
+        
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
         colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):now);
+        
         colDesc.add(NAME);
         colDesc.add(DATE);
         
+        HttpSession session = request.getSession();
+        String userName = session.getAttribute(USER_NAME) != null ? 
+                session.getAttribute(USER_NAME).toString() : DEFAULT_USER_NAME;
+        request.setAttribute(USER_NAME, userName);
         switch (mode){
             case INSERT : {
             try {
