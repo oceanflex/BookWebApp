@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.Dependent;
+import javax.sql.DataSource;
 
 /**
  *
@@ -28,7 +29,22 @@ public class DBMySql implements DBStrategy, Serializable {
     }
     
     /**
-     * This method is a prerequisite for running any queries
+     * Open a connection using a connection pool configured on server.
+     *
+     * @param ds - a reference to a connection pool via a JNDI name, producing
+     * this object. Typically done in a servlet using InitalContext object.
+     * @throws java.sql.SQLException
+     */
+    @Override
+    public final void openConnection(DataSource ds) throws SQLException {
+        //try {
+            conn = ds.getConnection();
+        //} catch (SQLException ex) {
+       //     throw new DataAccessException(ex.getMessage(),ex.getCause());
+        //}
+    }
+    /**
+     * This method is a prerequisite for running any queries (non-pool only)
      * @param driver location of the driver class for the mySql database
      * @param url the network location of the database to open a connection with
      * @param userName for authentication with the database

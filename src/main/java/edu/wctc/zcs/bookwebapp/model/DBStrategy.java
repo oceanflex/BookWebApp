@@ -3,6 +3,7 @@ package edu.wctc.zcs.bookwebapp.model;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 
 /**
  *
@@ -11,6 +12,7 @@ import java.util.Map;
 public interface DBStrategy {
     
     public abstract void openConnection(String driver, String url, String userName, String password)throws ClassNotFoundException, SQLException;
+    public void openConnection(DataSource ds) throws SQLException;
     public abstract void closeConnection() throws SQLException;
      
     public abstract boolean insertRecord(String tableName, List colDescriptors,

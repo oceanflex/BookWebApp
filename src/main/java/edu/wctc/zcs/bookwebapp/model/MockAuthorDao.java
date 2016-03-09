@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Alternative;
+import javax.sql.DataSource;
 
 /**
  *
@@ -104,5 +105,10 @@ public class MockAuthorDao implements AuthorDaoStrategy, Serializable{
     @Override
     public void initDao(String driver, String url, String user, String password) {
         
+    }
+
+    @Override
+    public void initDao(DataSource ds) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

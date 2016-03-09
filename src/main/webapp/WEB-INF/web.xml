@@ -28,6 +28,11 @@
         <param-name>db.password</param-name>
         <param-value>admin</param-value>
     </context-param>
+    <!-- above is for connections, below is for connection pool -->
+    <context-param>
+        <param-name>db.jndi.name</param-name>
+        <param-value>jdbc/book</param-value>
+    </context-param>
     
     <session-config>
         <session-timeout>
