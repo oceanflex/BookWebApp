@@ -134,7 +134,7 @@ public class AuthorController extends HttpServlet {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
-            view = request.getRequestDispatcher(PAGE);
+            view = request.getRequestDispatcher(response.encodeURL(PAGE));
             view.forward(request, response);
         }
         

@@ -86,7 +86,7 @@
                         <h4 class="modal-title" id="uModalLabel">Update Author</h4>
                     </div>
                     <div class="modal-body">
-                        <form role='form' method="post" action="index" id="-2">
+                        <form role='form' method="post" action='<%= response.encodeURL("index") %>' id="-2">
                             <div class="input-group">
                                 <label class="input-group-addon" for="uDate">Date Added</label>
                                 <input class="form-control" type="date" value=" " name="date_added" id="uDate" required/>
