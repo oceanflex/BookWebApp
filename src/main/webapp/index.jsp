@@ -27,7 +27,7 @@
                         <h4 class="modal-title" id="iModalLabel">Add New Author</h4>
                     </div>
                     <div class="modal-body">
-                        <form role='form' method="post" action="index" id="-1">
+                        <form role='form' method="post" action='<%= response.encodeURL("index") %>' id="-1">
                             <div class="input-group">
                                 <label class="input-group-addon" for="author_name">Author's Name</label>
                                 <input required type="text" placeholder="first last" id="author_name" class="form-control" name="author_name">
@@ -64,7 +64,7 @@
                         <td>${ i.authorID }</td>
                         <td>${ i.dateAdded }</td>
                         <td>
-                            <form role='form' method="post" name='${ i.authorID }' action="index" id='${ i.authorID }'>
+                            <form role='form' method="post" name='${ i.authorID }' action='<%= response.encodeURL("index") %>' id='${ i.authorID }'>
                                 <div class="btn-group" role="group">
                                     <button type="button" name="submit" class="btn btn-warning" value='update' 
                                             data-aid="${ i.authorID }" data-aname="${ i.authorName }" data-adate="${ i.dateAdded }" data-toggle="modal" data-target="#updateModal">Edit</button>
