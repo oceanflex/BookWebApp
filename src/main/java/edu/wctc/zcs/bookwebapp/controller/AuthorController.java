@@ -1,10 +1,15 @@
 package edu.wctc.zcs.bookwebapp.controller;
 
 
-import edu.wctc.zcs.bookwebapp.model.AuthorService;
+//import edu.wctc.zcs.bookwebapp.model.AuthorService;
+import edu.wctc.zcs.bookwebapp.model.Author;
+import edu.wctc.zcs.bookwebapp.model.service.AbstractFacade;
+import edu.wctc.zcs.bookwebapp.model.service.AuthorFacade;
+import edu.wctc.zcs.bookwebapp.model.service.BookFacade;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +52,9 @@ public class AuthorController extends HttpServlet {
     
     
     @Inject 
-    private AuthorService aServe;
+    private AbstractFacade<Author> aServe;
+    //@Inject
+    //private BookFacade bServe;
     
     //db config init params from web.xml
     private String driver;
@@ -68,11 +75,11 @@ public class AuthorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         response.setContentType(TYPE);
-        try {
+        /*try {
             configDbConnection();
         } catch (NamingException ex) {
             Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
         String mode = request.getParameter(MODE) != null ? request.getParameter(MODE) : MODE ;
         
@@ -94,8 +101,11 @@ public class AuthorController extends HttpServlet {
         switch (mode){
             case INSERT : {
             try {
-                aServe.insertRecord(ATTR,colDesc,colVal);
-            } catch (ClassNotFoundException | SQLException ex) {
+                Author temp = new Author();
+                temp.setAuthorName(userName);
+                temp.setDateAdded(new Date());
+                aServe.create(temp); //insertRecord(ATTR,colDesc,colVal);
+            } catch (Exception ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
             }
                 loadPage(request,response);
@@ -103,8 +113,12 @@ public class AuthorController extends HttpServlet {
             }
             case UPDATE : {
             try {
-                aServe.updateAuthorById(request.getParameter(ID), colDesc, colVal);
-            } catch (ClassNotFoundException | SQLException ex) {
+                Author temp = new Author(Integer.parseInt(request.getParameter(ID)));
+                temp.setAuthorName(request.getParameter(NAME));
+                temp.setDateAdded(df.parse(request.getParameter(DATE)));
+                aServe.create(temp);
+                //aServe.updateAuthorById(request.getParameter(ID), colDesc, colVal);
+            } catch (NumberFormatException | ParseException ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
             }
                 loadPage(request,response);
@@ -112,8 +126,12 @@ public class AuthorController extends HttpServlet {
             }
             case DELETE : {
             try {
-                aServe.deleteAuthorById(request.getParameter(ID));
-            } catch (ClassNotFoundException | SQLException ex) {
+                Author author;
+                author = aServe.find(new Integer(request.getParameter(ID)));
+                aServe.remove(author);
+                
+                //aServe.deleteAuthorById(request.getParameter(ID));
+            } catch (Exception ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
             }
                 loadPage(request,response);
@@ -130,8 +148,8 @@ public class AuthorController extends HttpServlet {
         
         RequestDispatcher view;
         try {
-            request.setAttribute(ATTR,aServe.getAuthorList());
-        } catch (ClassNotFoundException | SQLException ex) {
+            request.setAttribute(ATTR,aServe.findAll());
+        } catch (Exception ex) {
             Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             view = request.getRequestDispatcher(response.encodeURL(PAGE));
@@ -140,19 +158,18 @@ public class AuthorController extends HttpServlet {
         
     }
 
-    private void configDbConnection() throws NamingException{
+    /*private void configDbConnection() throws NamingException{
         if(dbJndiName == null) {
         aServe.getDao().initDao(driver, driverUrl, username, password);  
         } else {
-            /*
-             Lookup the JNDI name of the Glassfish connection pool
-             and then use it to create a DataSource object.
-             */
+            //Lookup the JNDI name of the Glassfish connection pool and then
+            //use it to create a DataSource object.
+             
             Context ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup(dbJndiName);
             aServe.getDao().initDao(ds);
         }
-    }
+    }*/
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
