@@ -40,7 +40,7 @@
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="book_PU"/>
-        <property name="packagesToScan" value="edu.wctc.zcs.bookwebapp.model"/>
+        <property name="packagesToScan" value="edu.wctc.zcs.bookwebapp.entity"/>
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
