@@ -3,9 +3,7 @@ package edu.wctc.zcs.bookwebapp.controller;
 
 //import edu.wctc.zcs.bookwebapp.model.AuthorService;
 import edu.wctc.zcs.bookwebapp.model.Author;
-import edu.wctc.zcs.bookwebapp.model.service.AbstractFacade;
-import edu.wctc.zcs.bookwebapp.model.service.AuthorFacade;
-import edu.wctc.zcs.bookwebapp.model.service.BookFacade;
+import edu.wctc.zcs.bookwebapp.service.AuthorService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -52,7 +50,7 @@ public class AuthorController extends HttpServlet {
     
     
     @Inject 
-    private AbstractFacade<Author> aServe;
+    private AuthorService aServe;
     //@Inject
     //private BookFacade bServe;
     
@@ -104,7 +102,7 @@ public class AuthorController extends HttpServlet {
                 Author temp = new Author();
                 temp.setAuthorName(userName);
                 temp.setDateAdded(new Date());
-                aServe.create(temp); //insertRecord(ATTR,colDesc,colVal);
+                aServe.edit(temp); //insertRecord(ATTR,colDesc,colVal);
             } catch (Exception ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -116,7 +114,7 @@ public class AuthorController extends HttpServlet {
                 Author temp = new Author(Integer.parseInt(request.getParameter(ID)));
                 temp.setAuthorName(request.getParameter(NAME));
                 temp.setDateAdded(df.parse(request.getParameter(DATE)));
-                aServe.create(temp);
+                aServe.edit(temp);
                 //aServe.updateAuthorById(request.getParameter(ID), colDesc, colVal);
             } catch (NumberFormatException | ParseException ex) {
                 Logger.getLogger(AuthorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +125,7 @@ public class AuthorController extends HttpServlet {
             case DELETE : {
             try {
                 Author author;
-                author = aServe.find(new Integer(request.getParameter(ID)));
+                author = aServe.findById(request.getParameter(ID));
                 aServe.remove(author);
                 
                 //aServe.deleteAuthorById(request.getParameter(ID));
