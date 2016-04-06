@@ -1,6 +1,6 @@
 package edu.wctc.zcs.bookwebapp.service;
 
-import edu.wctc.zcs.bookwebapp.model.Author;
+import edu.wctc.zcs.bookwebapp.entity.Author;
 import edu.wctc.zcs.bookwebapp.repository.AuthorRepository;
 import edu.wctc.zcs.bookwebapp.repository.BookRepository;
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.wctc.zcs.bookwebapp.model;
+package edu.wctc.zcs.bookwebapp.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
