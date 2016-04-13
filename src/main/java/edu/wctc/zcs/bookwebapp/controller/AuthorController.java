@@ -8,19 +8,19 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 /**
@@ -44,7 +44,7 @@ public class AuthorController extends HttpServlet {
     private static final String DEFAULT_USER_NAME = "-1";
     
     
-    @Inject 
+    //@Inject 
     private AuthorService aServe;
     //@Inject
     //private BookFacade bServe;
@@ -76,16 +76,16 @@ public class AuthorController extends HttpServlet {
         
         String mode = request.getParameter(MODE) != null ? request.getParameter(MODE) : MODE ;
         
-        List colDesc = new ArrayList();
-        List colVal = new ArrayList();
-        colVal.add(request.getParameter(NAME)!=null ? request.getParameter(NAME):DEFAULT_NAME);
+        //List colDesc = new ArrayList();
+        //List colVal = new ArrayList();
+        //colVal.add(request.getParameter(NAME)!=null ? request.getParameter(NAME):DEFAULT_NAME);
         
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
-        colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):now);
+        //colVal.add(request.getParameter(DATE)!=null ? request.getParameter(DATE):now);
         
-        colDesc.add(NAME);
-        colDesc.add(DATE);
+        //colDesc.add(NAME);
+        //colDesc.add(DATE);
         
         HttpSession session = request.getSession();
         String userName = session.getAttribute(USER_NAME) != null ? 
@@ -209,11 +209,14 @@ public class AuthorController extends HttpServlet {
      */
     @Override
     public void init() throws ServletException{
+         ServletContext sctx = getServletContext();
+        WebApplicationContext ctx
+                = WebApplicationContextUtils.getWebApplicationContext(sctx);
+        aServe = (AuthorService) ctx.getBean("authorService");
 //        driver = getServletContext().getInitParameter("db.driver.class");
 //        driverUrl = getServletContext().getInitParameter("db.url");
 //        username = getServletContext().getInitParameter("db.username");
 //        password = getServletContext().getInitParameter("db.password");
-        dbJndiName = getServletContext().getInitParameter("db.jndi.name");
     }// </editor-fold>
 
 }

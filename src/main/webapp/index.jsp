@@ -61,14 +61,14 @@
                 <c:forEach var="i" items="${author}" >
                     <tr>
                         <td>${ i.authorName }</td>
-                        <td>${ i.authorID }</td>
+                        <td>${ i.authorId }</td>
                         <td>${ i.dateAdded }</td>
                         <td>
-                            <form role='form' method="post" name='${ i.authorID }' action='<%= response.encodeURL("index") %>' id='${ i.authorID }'>
+                            <form role='form' method="post" name='${ i.authorId }' action='<%= response.encodeURL("index") %>' id='${ i.authorId }'>
                                 <div class="btn-group" role="group">
                                     <button type="button" name="submit" class="btn btn-warning" value='update' 
-                                            data-aid="${ i.authorID }" data-aname="${ i.authorName }" data-adate="${ i.dateAdded }" data-toggle="modal" data-target="#updateModal">Edit</button>
-                                    <input type="hidden" value='${ i.authorID }' name="aId"/>
+                                            data-aid="${ i.authorId }" data-aname="${ i.authorName }" data-adate="${ i.dateAdded }" data-toggle="modal" data-target="#updateModal">Edit</button>
+                                    <input type="hidden" value='${ i.authorId }' name="aId"/>
                                     <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
                                 </div>
                             </form>
