@@ -20,6 +20,7 @@
               crossorigin="anonymous">
     </head>
     <body>
+        <sec:authorize access="hasAnyRole('ROLE_MGR')">
         <div class="modal fade" id="insertModal" role="dialog" aria-labelledby="iModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -44,6 +45,7 @@
                 </div>
             </div>
         </div>
+        </sec:authorize>
         <div class="container">
             <br/>
             <div class="alert alert-info" role="alert">All Authors</div>
@@ -52,19 +54,19 @@
                 <th>Name</th>
                 <th>ID</th>
                 <th>Date Added</th>
-                <th>
+                <sec:authorize access="hasAnyRole('ROLE_MGR')"><th>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insertModal">
                         Add
                     </button>
 
-                </th>
+                    </th></sec:authorize>
                 </thead>
                 <c:forEach var="i" items="${author}" >
                     <tr>
                         <td>${ i.authorName }</td>
                         <td>${ i.authorId }</td>
                         <td>${ i.dateAdded }</td>
-                        <td>
+                        <sec:authorize access="hasAnyRole('ROLE_MGR')"><td>
                             <form role='form' method="post" name='${ i.authorId }' action='<%= response.encodeURL("index") %>' id='${ i.authorId }'>
                                 <div class="btn-group" role="group">
                                     <button type="button" name="submit" class="btn btn-warning" value='update' 
@@ -73,12 +75,12 @@
                                     <button name="submit" class="btn btn-danger" value='delete'>Delete</button>
                                 </div>
                             </form>
-                        </td>
+                            </td></sec:authorize>
                     </tr>
                 </c:forEach>
             </table>
         </div>
-
+        <sec:authorize access="hasAnyRole('ROLE_MGR')">
         <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="uModelLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -108,10 +110,15 @@
                 </div>
             </div>
         </div>
+        </sec:authorize>
         <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
                 integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" 
         crossorigin="anonymous"></script>
         <script src="custom.js"></script>
+        <sec:authorize access="hasAnyRole('ROLE_MGR','ROLE_USER')">
+            Logged in as: <sec:authentication property="principal.username"></sec:authentication> ::
+            <a href='<%= this.getServletContext().getContextPath() + "/j_spring_security_logout"%>'>Log Me Out</a>
+        </sec:authorize>  
     </body>
 </html>
