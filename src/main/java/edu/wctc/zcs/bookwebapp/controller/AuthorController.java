@@ -31,7 +31,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
     private static final String ATTR = "author";
-    private static final String PAGE = "/index.jsp";
+    private static final String PAGE = "/authors.jsp";
     private static final String MODE = "submit";
     private static final String INSERT = "insert";
     private static final String UPDATE = "update";
