@@ -27,7 +27,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author Zachary
  */
-@WebServlet(name = "AuthorController", urlPatterns = {"/index","/AuthorController"})
+@WebServlet(name = "AuthorController", urlPatterns = {"/index","/authors","/AuthorController"})
 public class AuthorController extends HttpServlet {
     private static final String TYPE = "text/html;charset=UTF-8";
     private static final String ATTR = "author";
